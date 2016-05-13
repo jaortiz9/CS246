@@ -5,5 +5,5 @@ public static void main(String[] args){
 	System. exit(-3);
     }
 
-    System.out.println("Hello Git World");
+    System.out.println("Hello GitHub");
 }    
