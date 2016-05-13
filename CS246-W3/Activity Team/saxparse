@@ -1,0 +1,87 @@
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+public class ReadXMLFile {
+
+   public static void main(String argv[]) {
+
+    try {
+
+	SAXParserFactory factory = SAXParserFactory.newInstance();
+	SAXParser saxParser = factory.newSAXParser();
+
+	DefaultHandler handler = new DefaultHandler() {
+
+	boolean bmonth = false;
+	boolean byear = false;
+	boolean bsession = false;
+	boolean bspeaker = false;
+
+	public void startElement(String uri, String localName,String qName, 
+                Attributes attributes) throws SAXException {
+
+		System.out.println("Start Element :" + qName);
+
+		if (qName.equalsIgnoreCase("MONTH")) {
+			bfname = true;
+		}
+
+		if (qName.equalsIgnoreCase("YEAR")) {
+			blname = true;
+		}
+
+		if (qName.equalsIgnoreCase("SESSION")) {
+			bnname = true;
+		}
+
+		if (qName.equalsIgnoreCase("SPEAKER")) {
+			bsalary = true;
+		}
+
+	}
+
+	public void endElement(String uri, String localName,
+		String qName) throws SAXException {
+
+		System.out.println("End Element :" + qName);
+
+	}
+
+	public void characters(char ch[], int start, int length) throws SAXException {
+
+		if (bmonth) {
+			System.out.println("First Month : " + new String(ch, start, length));
+			bmonth = false;
+		}
+
+		if (byear) {
+			System.out.println("Year : " + new String(ch, start, length));
+			byear = false;
+		}
+
+		if (bsession) {
+			System.out.println("Session : " + new String(ch, start, length));
+			bsession = false;
+		}
+
+		if (bspeaker) {
+			System.out.println("Speaker : " + new String(ch, start, length));
+			bspeaker = false;
+		}
+
+	}
+
+     };
+
+       saxParser.parse("c:\\~Nina/CS246/CS246-W3/246-03-conference.xml", handler);
+ 
+     } catch (Exception e) {
+       e.printStackTrace();
+     }
+  
+   }
+
+}
